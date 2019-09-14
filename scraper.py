@@ -6,7 +6,13 @@ from bs4 import BeautifulSoup
 import requests
 
 class ScrapedSite:
-    def __init__(self, rooturl, recursive=True, local=True, transform=(lambda x: x.lower()), *args, **kwargs):
+    transforms = {
+        'lower' : lambda x: [x.lower()],
+        'upper' : lambda x: [x.upper()],
+        'dualcase'  : lambda x: [x[0].upper() + x[1:], x[0].lower() + x[1:]]
+    }
+
+    def __init__(self, rooturl, recursive=False, local=False, transform=(lambda x: x.lower()):
         self.rooturl = rooturl.lower()
         try:
             if local:
@@ -29,6 +35,14 @@ class ScrapedSite:
                 counter += 1
 
 def main():
+	opts, args = getopt.getopt(sys.argv[1:], "rlt:")
+	recursive = False
+	local = False	
+	for o, a in opts:
+		if o == "-r":
+			recursive = True
+			
+	site = ScrapedSite
 
 
 if __name__ == "__main__":
